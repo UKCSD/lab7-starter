@@ -86,8 +86,10 @@ function initFormHandler() {
 
 	let recipeObject = {};
 
-	formData.forEach((value, key) => {
-		recipeObject[key] = value;
+		
+	formData.forEach((first, second) => {
+		recipeObject[second] = first;
+		
 	});
 
 	// B6. TODO - Create a new <recipe-card> element
