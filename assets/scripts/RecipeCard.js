@@ -1,5 +1,6 @@
 // RecipeCard.js
 
+
 class RecipeCard extends HTMLElement {
 	// Called once when document.createElement('recipe-card') is called, or
 	// the element is written into the DOM directly as <recipe-card>
