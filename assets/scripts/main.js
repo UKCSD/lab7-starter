@@ -24,7 +24,7 @@ function getRecipesFromStorage() {
 	// A9. TODO - Complete the functionality as described in this function
 	//           header. It is possible in only a single line, but should
 	//           be no more than a few lines.
-	return localStorage.getItem('recipes') ? JSON.parse(localStorage.getItem('recipes')) : [];
+	return JSON.parse(localStorage.getItem('recipes')) || [];
 
 }
 
@@ -47,7 +47,7 @@ function addRecipesToDocument(recipes) {
 		let recipeCard = document.createElement('recipe-card');
 		recipeCard.data = recipe;
 		main.appendChild(recipeCard);
-	})
+	});
 }
 
 /**
@@ -69,14 +69,14 @@ function saveRecipesToStorage(recipes) {
  */
 function initFormHandler() {
 	// B2. TODO - Get a reference to the <form> element
-	let form = document.querySelector('form');
+	let form = document.querySelector('#new-recipe');
 	// B3. TODO - Add an event listener for the 'submit' event, which fires when the
 	//            submit button is clicked
 	
 	// Steps B4-B9 will occur inside the event listener from step B3
 
 	form.addEventListener('submit', event => {
-
+	
 	// B4. TODO - Create a new FormData object from the <form> element reference above
 	let formData = new FormData(form);
 
@@ -84,14 +84,11 @@ function initFormHandler() {
 	//            make this easier to read), and then extract the keys and corresponding
 	//            values from the FormData object and insert them into recipeObject
 
-	let recipeObject = { };
-	
-	for(let pair in formData.entries()) 
-	{
-	
-	formData[pair[0]] = pair[1];
-	
-	}
+	let recipeObject = {};
+
+	formData.forEach((value, key) => {
+		recipeObject[key] = value;
+	});
 
 	// B6. TODO - Create a new <recipe-card> element
 	let recipeCard2 = document.createElement('recipe-card');
@@ -103,11 +100,11 @@ function initFormHandler() {
 	// B9. TODO - Get the recipes array from localStorage, add this new recipe to it, and
 	//            then save the recipes array back to localStorage
 	
-	let recipes = getRecipesFromStorage();
+	let oldRecipes = getRecipesFromStorage();
 
-	recipes.push(recipeObject);
+	oldRecipes.push(recipeObject);
 
-	saveRecipesToStorage(recipes);
+	localStorage.setItem('recipes', JSON.stringify(oldRecipes));
 
 
 	});
